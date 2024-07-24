@@ -18,6 +18,28 @@ This second reverse diffusion process will be the goal to modelize through the s
 From this study it will be proved how the reverse process can transform samples from Gaussian
 distributions back into new samples living in our original data distribution.
 
+Training Algorithm (Ho et al. ddpm):
+
+![image](https://github.com/user-attachments/assets/0f4fd138-f77b-4693-a2d1-8765fa409fce)
+
+
+Forward and reverse diffusion (MNIST):
+
+![image](https://github.com/user-attachments/assets/98d0fc1b-b672-4150-a099-c5755fe7843d)
+
+Results (MNIST and Swiss-Roll):
+
+![image](https://github.com/user-attachments/assets/345965e5-7cff-4d0e-8f68-3e69ede0e8c0)
+
+![image](https://github.com/user-attachments/assets/568ff606-99a7-4240-b8a0-00474e1b12f0)
+
+Reconstruction results (MNIST):
+
+![image](https://github.com/user-attachments/assets/10a75d7b-71a4-4ad7-abea-14da7ae1a697)
+
+![image](https://github.com/user-attachments/assets/ec4ec38e-2c4b-47a1-a92f-37c7cf5d7731)
+
+
 USE:
 
 A jupyter notebook is uploaded with the code used, also, a folder with the MNIST files and a last update training code file. 
