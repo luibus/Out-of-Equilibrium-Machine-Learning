@@ -21,7 +21,7 @@ class Difusion:
         self.m=data.size(dim=1)                                                 #numero de samples
         self.T = paso_temp                                                      #pasos de tiempo
         self.mu=0                                                               #media de el ruido que se añade en los procesos
-        self.var=1                                                          #varianza del ruido
+        self.var=1                                                              #varianza del ruido
         self.data=data                                                          #dos definiciones de data para varios usos (unused)
         self.data2=data
         self.start=(1e-4)                                                       #inicio y final del difusion rate, se hace linspace para retrasar los efectos del proceso
@@ -170,9 +170,14 @@ frame_num= 300                                                                  
 train_gap=1                                                                     #variable del numero de frames entre toma de datos
 array_images=torch.ones(frame_num,784)
 
-chuleta_mins=np.loadtxt('chuleta_min')                                          #carga de mínimos
-
-pixel_bar=torch.cuda.mem_get_info(DEVICE)[1]                                    #crea una barra de carga con el total de la memoria de cuda
+#chuleta_mins=np.loadtxt('chuleta_min')                                         #carga de mínimos
+if DEVICE=='cuda':                                                         
+    pixel_bar=torch.cuda.mem_get_info(DEVICE)[1]    
+else: 
+    import psutil                                                               #si se usa cuda se crea una barra de progreso
+    pixel_bar=psutil.virtual_memory().total   
+    print('memoria total de la cpu',pixel_bar)
+                                                                                #crea una barra de carga con el total de la memoria de cuda
 p_bar=tqdm(total=pixel_bar)
 first=0
 tol=6                                                                           #define la tolerancia de la varianza
@@ -185,7 +190,7 @@ var_loss_ploteable=torch.ones(T,epoch_frame,frame_num*train_gap)
 
 """bucle de entrenamiento"""
 for m in range(epoch_frame):
-    D_in, H, D_out = 784, 1700+m*100, 784                                       #784 entradas, H neuronas en la capa oculta y 784 salidas.
+    D_in, H, D_out = 784, 100+m*100, 784                                       #784 entradas, H neuronas en la capa oculta y 784 salidas.
     model_dict=torch.nn.ParameterDict()                                         #inicializamos el diccionario|probar a definir t como variable
 
     for i in {str(sub) for sub in range(T)}:                                    #definimos el modelo: autoencoder
